@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "react": "npm:react@^18.2.0",
+    "react-dom": "npm:react-dom@^18.2.0",
+    "react-dom/server": "npm:react-dom@^18.2.0/server"
+  }
+}
