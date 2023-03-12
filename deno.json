@@ -12,7 +12,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "dom.extras",
+      "deno.ns"
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "https://esm.sh/v111/react@18.2.0"
