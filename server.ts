@@ -1,5 +1,5 @@
 import { Server } from "https://deno.land/std@0.179.0/http/server.ts";
-import { build } from "esbuild";
+import { build } from "https://deno.land/x/esbuild@v0.17.11/mod.js";
 import { createElement } from "react";
 import RSDWServer from "react-server-dom-webpack/server.browser";
 import { routes } from "./src/routes.ts";
