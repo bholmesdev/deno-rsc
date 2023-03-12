@@ -1,8 +1,10 @@
 import { Server } from "https://deno.land/std@0.179.0/http/server.ts";
 import { build } from "esbuild";
+import * as esbuildPluginImportMap from "esbuild-plugin-import-map";
 import { createElement } from "react";
 import RSDWServer from "react-server-dom-webpack/server.browser";
 import { routes } from "./src/routes.ts";
+import importMap from "./import_map.json" assert { type: "json" };
 
 const port = 8080;
 const html = await getBaseHtml();
@@ -47,17 +49,22 @@ globalThis.addEventListener("unload", () => {
 });
 
 async function getBaseHtml() {
-  const nodeRoot = new URL("node-root/", import.meta.url);
+  // Process ESM imports against import map before sending to the client
+  // ex. transform "react" to "https://esm.sh/react@18.2.0"
+  await esbuildPluginImportMap.load(importMap);
   const {
     outputFiles: [builtScript],
   } = await build({
-    entryPoints: [new URL("root.tsx", nodeRoot).pathname],
+    entryPoints: [new URL("root.tsx", import.meta.url).pathname],
     sourcemap: false,
     write: false,
+    // `format` and `bundle` are required for esbuild-plugin-import-map
+    // will *not* bundle dependencies inline when using format: "esm"
+    format: "esm",
     bundle: true,
-    nodePaths: [nodeRoot.pathname],
-    jsxImportSource: "react",
+    jsxImportSource: importMap.imports.react,
     jsx: "automatic",
+    plugins: [esbuildPluginImportMap.plugin()],
   });
   return `<!DOCTYPE html>
   <html lang="en">

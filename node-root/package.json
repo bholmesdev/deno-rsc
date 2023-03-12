@@ -1,7 +1,0 @@
-{
-	"dependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-server-dom-webpack": "0.0.0-experimental-b72ed698f-20230303"
-	}
-}
