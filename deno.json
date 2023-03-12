@@ -1,6 +1,6 @@
 {
   "imports": {
-    "esbuild": "https://deno.land/x/esbuild@v0.17.11",
+    "esbuild": "https://deno.land/x/esbuild@v0.17.11/mod.js",
     "react": "https://esm.sh/v111/react@18.2.0",
     "react-dom": "https://esm.sh/v111/react-dom@18.2.0",
     "react-dom/client": "https://esm.sh/v111/react-dom@18.2.0/client"
