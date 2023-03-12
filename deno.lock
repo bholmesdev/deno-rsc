@@ -17,6 +17,7 @@
     "https://deno.land/x/denoflate@1.2.1/pkg/denoflate_bg.wasm.js": "d581956245407a2115a3d7e8d85a9641c032940a8e810acbd59ca86afd34d44d",
     "https://deno.land/x/esbuild@v0.17.11/mod.d.ts": "dc279a3a46f084484453e617c0cabcd5b8bd1920c0e562e4ea02dfc828c8f968",
     "https://deno.land/x/esbuild@v0.17.11/mod.js": "4f4e61964a551d9c0baf5bb19e973cf631cf8c66ddaf01e70070f8a100fc938c",
+    "https://esm.sh/stable/react@0.0.0-experimental-b72ed698f-20230303/deno/react.js": "bbde9bd5e948e265435411fabfbeba05890c433889370daa63aa3eea9af31650",
     "https://esm.sh/stable/react@18.2.0/deno/jsx-runtime.js": "27248626276a6eb9c0db1e7bea475c6999aaa82070b9dfe0b44bdcdda56212fd",
     "https://esm.sh/stable/react@18.2.0/deno/react.js": "99f4a29109464569449be1002a828827c6dc9d7a386d28da012c29ba4cc88abd",
     "https://esm.sh/v111/@types/prop-types@15.7.5/index.d.ts": "6a386ff939f180ae8ef064699d8b7b6e62bc2731a62d7fbf5e02589383838dea",
@@ -24,6 +25,8 @@
     "https://esm.sh/v111/@types/react@18.0.26/index.d.ts": "bb01db1b434ece658ae4da2a91c855f5ce823bdad82d8a0265e325aa12193450",
     "https://esm.sh/v111/@types/scheduler@0.16.2/tracing.d.ts": "f5a8b384f182b3851cec3596ccc96cb7464f8d3469f48c74bf2befb782a19de5",
     "https://esm.sh/v111/csstype@3.1.1/index.d.ts": "1c29793071152b207c01ea1954e343be9a44d85234447b2b236acae9e709a383",
+    "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/deno/server.browser.js": "86cadab0ddc838a3ca3793ec257ea16bddacbc19871d41f915a6b950f8073b6c",
+    "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/server.browser": "f82c8957cf106cbc44fe8c81923e1b59f6fd651b70c65fb48f2a89c9c93b8489",
     "https://esm.sh/v111/react@18.2.0": "84aa07282d2f3c843f7d56daeae0be41ceae768391c4418f7358dd64e8fe4eca",
     "https://esm.sh/v111/react@18.2.0/jsx-runtime": "8e5e22ae56773ef989a95772b9b9f6d4e5d7891f2d20875c25e51015df018f7c"
   },

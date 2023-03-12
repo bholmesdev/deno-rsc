@@ -1,7 +1,7 @@
 import { Server } from "https://deno.land/std@0.179.0/http/server.ts";
-import { build } from "https://deno.land/x/esbuild@v0.17.11/mod.js";
+import { build } from "esbuild";
 import { createElement } from "react";
-import RSDWServer from "npm:react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/server.browser";
+import RSDWServer from "react-server-dom-webpack/server.browser";
 import { routes } from "./src/routes.ts";
 
 const port = 8080;
