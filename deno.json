@@ -6,7 +6,7 @@
   "tasks": {
     "install-node": "cd node-root && npm i --legacy-peer-deps",
     "cache-reload": "deno cache --reload server.ts",
-    "serve": "deno run --watch --allow-net --allow-read --allow-ffi --allow-run --allow-env server.dev.ts"
+    "serve": "deno run --allow-net --allow-read --allow-ffi --allow-run --allow-env server.dev.ts"
   },
   "compilerOptions": {
     "lib": [
@@ -16,6 +16,6 @@
       "deno.ns"
     ],
     "jsx": "react-jsx",
-    "jsxImportSource": "https://esm.sh/v111/react@18.2.0"
+    "jsxImportSource": "react"
   }
 }

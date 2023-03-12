@@ -6,6 +6,7 @@
     "react-dom": "https://esm.sh/v111/react-dom@18.2.0",
     "react-server-dom-webpack/server.browser": "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/server.browser",
     "react-server-dom-webpack/client": "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/client",
-    "react-dom/client": "https://esm.sh/v111/react-dom@18.2.0/client"
+    "react-dom/client": "https://esm.sh/v111/react-dom@18.2.0/client",
+    "react/jsx-runtime": "https://esm.sh/v111/react@18.2.0/jsx-runtime"
   }
 }
