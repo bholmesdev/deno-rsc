@@ -7,20 +7,12 @@ import { routes } from "./src/routes.ts";
 import importMap from "./import_map.json" assert { type: "json" };
 
 const port = 8080;
-const html = await getBaseHtml();
+let cachedHtml = await getBaseHtml();
 
 async function handler(req: Request): Promise<Response> {
   const pathname = new URL(req.url).pathname;
-  if (pathname === "" || pathname === "/") {
-    return new Response(html, {
-      headers: {
-        "content-type": "text/html; charset=utf-8",
-      },
-    });
-  }
-
-  if (pathname.startsWith("/routes/")) {
-    const Comp = routes[pathname.replace(/^\/routes/, "")];
+  if (pathname.startsWith("/__routes/")) {
+    const Comp = routes[pathname.replace(/^\/__routes/, "")];
     if (Comp) {
       const stream = RSDWServer.renderToReadableStream(createElement(Comp));
       // const ele = await RSDWClient.createFromFetch(
@@ -35,7 +27,17 @@ async function handler(req: Request): Promise<Response> {
       });
     }
   }
-  return new Response("Not found", { status: 404 });
+
+  if (Deno.env.has("DENO_RSC_WATCH_MODE")) {
+    // Reload base HTML on every request in dev mode
+    // to invalidate on potential file changes
+    cachedHtml = await getBaseHtml();
+  }
+  return new Response(cachedHtml, {
+    headers: {
+      "content-type": "text/html; charset=utf-8",
+    },
+  });
 }
 
 const server = new Server({ port, handler });
@@ -66,6 +68,7 @@ async function getBaseHtml() {
     jsx: "automatic",
     plugins: [esbuildPluginImportMap.plugin()],
   });
+  console.log(builtScript.text);
   return `<!DOCTYPE html>
   <html lang="en">
   
