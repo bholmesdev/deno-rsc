@@ -1,7 +1,6 @@
 {
-  "imports": {
-    "react": "npm:react@^18.2.0",
-    "react-dom": "npm:react-dom@^18.2.0",
-    "react-dom/server": "npm:react-dom@^18.2.0/server"
+  "tasks": {
+    "install:node": "cd esbuild-entrypoint && pnpm i",
+    "serve": "deno run --watch --allow-net --allow-read --allow-ffi --allow-run --allow-env server.ts"
   }
 }
