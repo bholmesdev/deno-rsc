@@ -217,16 +217,25 @@
     "https://esm.sh/stable/react@18.2.0/deno/react.js": "99f4a29109464569449be1002a828827c6dc9d7a386d28da012c29ba4cc88abd",
     "https://esm.sh/v111/@types/esbuild-plugin-import-map@0.0.0/index.d.ts": "89c75098bf37fb868f3d888aa8a9e785b4302ba885d41a11ddd6e3ec7416303a",
     "https://esm.sh/v111/@types/prop-types@15.7.5/index.d.ts": "6a386ff939f180ae8ef064699d8b7b6e62bc2731a62d7fbf5e02589383838dea",
+    "https://esm.sh/v111/@types/react-dom@18.0.11/client~.d.ts": "466d1039a60e87f181f7f59bcad67b852fdbb7b259c75991b5de7c32eda2731a",
     "https://esm.sh/v111/@types/react@18.0.26/global.d.ts": "bbdf156fea2fabed31a569445835aeedcc33643d404fcbaa54541f06c109df3f",
     "https://esm.sh/v111/@types/react@18.0.26/index.d.ts": "bb01db1b434ece658ae4da2a91c855f5ce823bdad82d8a0265e325aa12193450",
+    "https://esm.sh/v111/@types/react@18.0.28/global.d.ts": "bbdf156fea2fabed31a569445835aeedcc33643d404fcbaa54541f06c109df3f",
+    "https://esm.sh/v111/@types/react@18.0.28/index.d.ts": "bb01db1b434ece658ae4da2a91c855f5ce823bdad82d8a0265e325aa12193450",
     "https://esm.sh/v111/@types/scheduler@0.16.2/tracing.d.ts": "f5a8b384f182b3851cec3596ccc96cb7464f8d3469f48c74bf2befb782a19de5",
     "https://esm.sh/v111/csstype@3.1.1/index.d.ts": "1c29793071152b207c01ea1954e343be9a44d85234447b2b236acae9e709a383",
     "https://esm.sh/v111/esbuild-plugin-import-map@2.1.0": "74ab2f96f47405ee0613580b8c0a21254d5d59df32a39085e818953261242b6b",
     "https://esm.sh/v111/esbuild-plugin-import-map@2.1.0/deno/esbuild-plugin-import-map.js": "5d9677d76e84dbfad5dd430c9562231603419abe5f16442ec0418fbd7dbd35f1",
+    "https://esm.sh/v111/react-dom@18.2.0/client": "fb06372e4a6afcde066ec240e06c9e98fcb60602b4ba5b99a550c9af0dc1853b",
+    "https://esm.sh/v111/react-dom@18.2.0/deno/client.js": "4400df15c53c8c805e6310b4b41ad2df83480cdf258f901d7c681d221b0d1349",
+    "https://esm.sh/v111/react-dom@18.2.0/deno/react-dom.js": "a31ce282fc38ad745d7f05df023eae226575205a75d51454bb58883643a9f89b",
+    "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/client": "ef65caa6eae1ba0ad8b6bdef6c1affe3bbae2846e2d84653407f3279d264e85a",
+    "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/deno/client.js": "270fb0d6372c4c376d1aa777b5fd9434b87b442726e8958709ada896cf62ecb6",
     "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/deno/server.browser.js": "86cadab0ddc838a3ca3793ec257ea16bddacbc19871d41f915a6b950f8073b6c",
     "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/server.browser": "f82c8957cf106cbc44fe8c81923e1b59f6fd651b70c65fb48f2a89c9c93b8489",
     "https://esm.sh/v111/react@18.2.0": "84aa07282d2f3c843f7d56daeae0be41ceae768391c4418f7358dd64e8fe4eca",
-    "https://esm.sh/v111/react@18.2.0/jsx-runtime": "8e5e22ae56773ef989a95772b9b9f6d4e5d7891f2d20875c25e51015df018f7c"
+    "https://esm.sh/v111/react@18.2.0/jsx-runtime": "8e5e22ae56773ef989a95772b9b9f6d4e5d7891f2d20875c25e51015df018f7c",
+    "https://esm.sh/v111/scheduler@0.23.0/deno/scheduler.js": "5886dd918e6c1bd2f950fe429f8458ac18cca1fc5e818a42d5cf084297d9078b"
   },
   "npm": {
     "specifiers": {
