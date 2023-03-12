@@ -8,6 +8,9 @@ const root = createRoot(document.getElementById("root")!);
 // This doesn't mean RSCs run on the client!
 // it just means I'm dumb and don't know how to import
 // a RSC from a server app.
-createFromFetch(fetch("/__routes/")).then((ele: ReactNode) => {
-  root.render(<StrictMode>{ele}</StrictMode>);
-});
+
+createFromFetch(fetch(`/__routes${window.location.pathname}`)).then(
+  (ele: ReactNode) => {
+    root.render(<StrictMode>{ele}</StrictMode>);
+  }
+);

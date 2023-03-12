@@ -3,32 +3,73 @@ import { build } from "esbuild";
 import * as esbuildPluginImportMap from "esbuild-plugin-import-map";
 import { createElement } from "react";
 import RSDWServer from "react-server-dom-webpack/server.browser";
-import { routes } from "./src/routes.ts";
 import importMap from "./import_map.json" assert { type: "json" };
+import { createRefreshMiddleware } from "./utils/refresher.server.ts";
 
 const port = 8080;
+const isWatchMode = Deno.env.has("DENO_RSC_WATCH_MODE");
 let cachedHtml = await getBaseHtml();
 
-async function handler(req: Request): Promise<Response> {
-  const pathname = new URL(req.url).pathname;
-  if (pathname.startsWith("/__routes/")) {
-    const Comp = routes[pathname.replace(/^\/__routes/, "")];
-    if (Comp) {
-      const stream = RSDWServer.renderToReadableStream(createElement(Comp));
-      // const ele = await RSDWClient.createFromFetch(
-      //   new Promise((resolve) => resolve(new Response(stream)))
-      // );
-      // const Awaited = await ele;
+const routesDir = "src/routes/";
+const routesUrl = new URL(routesDir, import.meta.url);
 
-      return new Response(stream, {
-        headers: {
-          "content-type": "text/html",
-        },
-      });
+async function handler(req: Request): Promise<Response> {
+  if (isWatchMode) {
+    const refreshMiddleware = createRefreshMiddleware();
+    const refreshRes = refreshMiddleware(req);
+    if (refreshRes) {
+      return refreshRes;
     }
   }
 
-  if (Deno.env.has("DENO_RSC_WATCH_MODE")) {
+  const pathname = new URL(req.url).pathname;
+  if (pathname.startsWith("/__routes/")) {
+    const routePath = pathname.replace(/^\/__routes\//, "");
+    const compName = routePath === "" ? "index" : routePath;
+    let Comp = null;
+    try {
+      const mod = await import(
+        new URL(
+          `${compName}.tsx${
+            // Invalidate cached module on every request in dev mode
+            // WARNING: can cause memory leaks for long-running dev servers!
+            isWatchMode ? `?invalidate=${Date.now()}` : ""
+          }`,
+          routesUrl
+        ).href
+      );
+      if (typeof mod === "object" && mod != null && mod.default) {
+        Comp = mod.default;
+      } else {
+        return new Response(
+          `Components under ${routesDir} must have a default export.`,
+          {
+            status: 400,
+          }
+        );
+      }
+    } catch {
+      return new Response(
+        `Not Found. Ensure all entries in ${routesDir} are \`.tsx\` files.`,
+        {
+          status: 404,
+        }
+      );
+    }
+    const stream = RSDWServer.renderToReadableStream(createElement(Comp));
+    // const ele = await RSDWClient.createFromFetch(
+    //   new Promise((resolve) => resolve(new Response(stream)))
+    // );
+    // const Awaited = await ele;
+
+    return new Response(stream, {
+      headers: {
+        "content-type": "text/html",
+      },
+    });
+  }
+
+  if (isWatchMode) {
     // Reload base HTML on every request in dev mode
     // to invalidate on potential file changes
     cachedHtml = await getBaseHtml();
@@ -57,7 +98,7 @@ async function getBaseHtml() {
   const {
     outputFiles: [builtScript],
   } = await build({
-    entryPoints: [new URL("root.tsx", import.meta.url).pathname],
+    entryPoints: [new URL("src/root.tsx", import.meta.url).pathname],
     sourcemap: false,
     write: false,
     // `format` and `bundle` are required for esbuild-plugin-import-map
@@ -67,8 +108,14 @@ async function getBaseHtml() {
     jsxImportSource: importMap.imports.react,
     jsx: "automatic",
     plugins: [esbuildPluginImportMap.plugin()],
+    footer: isWatchMode
+      ? {
+          js: await Deno.readTextFile(
+            new URL("utils/refresher.client.js", import.meta.url)
+          ),
+        }
+      : undefined,
   });
-  console.log(builtScript.text);
   return `<!DOCTYPE html>
   <html lang="en">
   
