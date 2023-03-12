@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "esbuild": "https://deno.land/x/esbuild@v0.17.11/mod.js",
+    "react": "https://esm.sh/v111/react@18.2.0",
+    "react-dom": "https://esm.sh/v111/react-dom@18.2.0",
+    "react-server-dom-webpack/server.browser": "https://esm.sh/v111/react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/server.browser",
+    "react-dom/client": "https://esm.sh/v111/react-dom@18.2.0/client"
+  }
+}
