@@ -1,10 +1,10 @@
 import { Server } from "https://deno.land/std@0.179.0/http/server.ts";
 import { build } from "npm:esbuild";
-import { createElement } from "npm:react";
+import { createElement } from "react";
 import RSDWServer from "npm:react-server-dom-webpack@0.0.0-experimental-b72ed698f-20230303/server.browser";
 import { routes } from "./src/routes.ts";
 
-const PORT = 8080;
+const port = 8080;
 const html = await getBaseHtml();
 
 async function handler(req: Request): Promise<Response> {
@@ -36,10 +36,8 @@ async function handler(req: Request): Promise<Response> {
   return new Response("Not found", { status: 404 });
 }
 
-const hostname = "localhost";
-
-const server = new Server({ hostname, port: PORT, handler });
-console.log(`Starting to listen on port ${PORT}`);
+const server = new Server({ port, handler });
+console.log(`Starting to listen on port ${port}`);
 server.listenAndServe();
 
 // Gracefully restart server on `deno --watch`
@@ -49,20 +47,36 @@ globalThis.addEventListener("unload", () => {
 });
 
 async function getBaseHtml() {
-  const esbuildEntrypoint = new URL("esbuild-entrypoint/", import.meta.url);
-
-  const index = await Deno.readTextFile(
-    new URL("index.html", esbuildEntrypoint)
-  );
+  const nodeRoot = new URL("node-root/", import.meta.url);
   const {
     outputFiles: [builtScript],
   } = await build({
-    entryPoints: [new URL("index.js", esbuildEntrypoint).pathname],
+    entryPoints: [new URL("root.tsx", nodeRoot).pathname],
     sourcemap: false,
     write: false,
     bundle: true,
-    nodePaths: [esbuildEntrypoint.pathname],
+    nodePaths: [nodeRoot.pathname],
+    jsxImportSource: "react",
+    jsx: "automatic",
   });
-  const html = index.replace("<!--@@SCRIPT@@-->", builtScript.text);
-  return html;
+  return `<!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  
+  <body>
+    <h1>Hey!</h1>
+    <div id="root"></div>
+  </body>
+  
+  <script type="module">
+  ${builtScript.text}
+  </script>
+  
+  </html>`;
 }

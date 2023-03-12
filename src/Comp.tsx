@@ -1,5 +1,3 @@
-import React from "react";
-
 export async function Comp() {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return (
