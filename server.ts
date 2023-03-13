@@ -23,6 +23,24 @@ async function handler(req: Request): Promise<Response> {
   }
 
   const pathname = new URL(req.url).pathname;
+  // TODO: generate these modules using esbuild
+  if (pathname === "/__components/LikeButton.js") {
+    return new Response(
+      `
+    "use client";
+    import { createElement } from '${importMap.imports.react}';
+    export function LikeButton() {
+      console.log('hey from the client!')
+      return createElement('button', null, 'Like');
+    }`,
+      {
+        headers: {
+          "content-type": "application/javascript",
+        },
+      }
+    );
+  }
+
   if (pathname.startsWith("/__routes/")) {
     const routePath = pathname.replace(/^\/__routes\//, "");
     const compName = routePath === "" ? "index" : routePath;
@@ -56,7 +74,29 @@ async function handler(req: Request): Promise<Response> {
         }
       );
     }
-    const stream = RSDWServer.renderToReadableStream(createElement(Comp));
+    const bundlerConfig = new Proxy(
+      {},
+      {
+        // TODO: correctly map based on filepath
+        get(_target, filepath: string) {
+          return new Proxy(
+            {},
+            {
+              get(_target, name) {
+                const ret = {
+                  id: "/__components/LikeButton.js",
+                  chunks: [],
+                  name,
+                  async: true,
+                };
+                return ret;
+              },
+            }
+          );
+        },
+      }
+    );
+    const stream = RSDWServer.renderToReadableStream(Comp(), bundlerConfig);
     // const ele = await RSDWClient.createFromFetch(
     //   new Promise((resolve) => resolve(new Response(stream)))
     // );

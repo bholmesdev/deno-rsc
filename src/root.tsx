@@ -2,6 +2,10 @@ import { ReactNode, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createFromFetch } from "react-server-dom-webpack/client";
 
+window.__webpack_require__ = async (id: string) => {
+  return import(id);
+};
+
 const root = createRoot(document.getElementById("root")!);
 
 // FETCHES A SERVER APP TO RENDER ON THE CLIENT
@@ -10,7 +14,7 @@ const root = createRoot(document.getElementById("root")!);
 // a RSC from a server app.
 
 createFromFetch(fetch(`/__routes${window.location.pathname}`)).then(
-  (ele: ReactNode) => {
-    root.render(<StrictMode>{ele}</StrictMode>);
+  async (ele) => {
+    root.render(<StrictMode>{await ele}</StrictMode>);
   }
 );
