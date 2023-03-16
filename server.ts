@@ -26,13 +26,17 @@ async function handler(req: Request): Promise<Response> {
   // TODO: generate these modules using esbuild
   if (pathname === "/__components/LikeButton.js") {
     return new Response(
-      `
-    "use client";
-    import { createElement } from '${importMap.imports.react}';
-    export function LikeButton() {
-      console.log('hey from the client!')
-      return createElement('button', null, 'Like');
-    }`,
+      `"use client";
+import { useState, createElement } from "${importMap.imports.react}";
+
+export function LikeButton() {
+  const [liked, setLiked] = useState(false);
+  return createElement(
+    'button',
+    { onClick: () => setLiked(!liked) },
+    liked ? 'Unlike' : 'Like'
+  );
+}`,
       {
         headers: {
           "content-type": "application/javascript",
